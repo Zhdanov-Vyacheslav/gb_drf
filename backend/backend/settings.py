@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'user',
+    'project',
     'todo_notes',
 ]
 
@@ -89,6 +91,12 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        'rest_framework.renderers.JSONRenderer'    ]
+}
+if DEBUG is True:
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append('rest_framework.renderers.BrowsableAPIRenderer')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
