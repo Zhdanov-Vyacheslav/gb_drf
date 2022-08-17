@@ -1,8 +1,13 @@
+from rest_framework.relations import StringRelatedField, SlugRelatedField
 from rest_framework.serializers import ModelSerializer
-from .models import User
+
+from todo_notes.models import TODO_Note
 
 
-class UserModelSerializer(ModelSerializer):
+class TODO_NoteModelSerializer(ModelSerializer):
+    project = SlugRelatedField(slug_field='name', read_only=True)
+    user = StringRelatedField()
+
     class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name']
+        model = TODO_Note
+        fields = ['project', 'text', 'user', 'active']

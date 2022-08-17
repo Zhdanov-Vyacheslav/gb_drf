@@ -1,12 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+
+from project.models import Project
+from user.models import User
 
 
-class User(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=32,
-        unique=True,
-    )
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+class TODO_Note(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    text = models.TextField()
+    date_create = models.DateField(auto_now=True)
+    date_update = models.DateField(auto_now=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    active = models.BooleanField()
