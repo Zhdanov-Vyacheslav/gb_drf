@@ -10,4 +10,4 @@ class ProjectModelSerializer(ModelSerializer):
     class Meta:
         model = Project
         repository = CharField(max_length=128, required=False)
-        fields = ['name', 'repository', 'users']
+        fields = '__all__'

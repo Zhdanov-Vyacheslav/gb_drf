@@ -10,4 +10,4 @@ class TODO_NoteModelSerializer(ModelSerializer):
 
     class Meta:
         model = TODO_Note
-        fields = ['project', 'text', 'user', 'active']
+        fields = '__all__'
