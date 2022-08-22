@@ -1,3 +1,5 @@
+import UserList from "./UserList";
+
 const ProjectItem = ({project}) => {
     return (
         <tr>
@@ -8,7 +10,7 @@ const ProjectItem = ({project}) => {
                 {project.repository}
             </td>
             <td>
-                {project.users.values()}
+                <UserList users = {project.users} />
             </td>
         </tr>
     )
