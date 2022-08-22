@@ -3,6 +3,8 @@ import React from "react";
 import axios from "axios";
 
 import UserList from './components/UserList';
+// import ProjectList from './components/ProjectList';
+// import NoteList from './components/NoteList';
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 
@@ -12,6 +14,8 @@ class App extends React.Component {
 
     this.state = {
         'users': [],
+        'project':[],
+        'TODO_notes':[],
         'menu': [
             {'href': 'http://localhost:3000', 'name':'Home'},
             {'href': 'http://localhost:3000', 'name': '1'},
@@ -33,6 +37,28 @@ class App extends React.Component {
                 )
         })
         .catch(error => console.log(error))
+      axios
+        .get('http://localhost:8000/api/projects/')
+        .then(response => {
+            const projects = response.data
+                this.setState(
+                    {
+                        'projects': projects
+                    }
+                )
+        })
+        .catch(error => console.log(error))
+      axios
+        .get('http://localhost:8000/api/notes/')
+        .then(response => {
+            const notes = response.data
+                this.setState(
+                    {
+                        'notes': notes
+                    }
+                )
+        })
+        .catch(error => console.log(error))
   }
 
     render() {
@@ -40,7 +66,7 @@ class App extends React.Component {
          <html>
          <body>
          <div>
-             <Menu menu={this.state.menu} />
+             <Menu menu = {this.state.menu} />
              <UserList users = {this.state.users} />
          </div>
          </body>
