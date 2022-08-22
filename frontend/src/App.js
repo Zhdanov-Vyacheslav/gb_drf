@@ -1,10 +1,11 @@
 import React from "react";
-
 import axios from "axios";
 
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+
 import UserList from './components/UserList';
-// import ProjectList from './components/ProjectList';
-// import NoteList from './components/NoteList';
+import ProjectList from './components/ProjectList';
+import NoteList from './components/NoteList';
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 
@@ -14,13 +15,13 @@ class App extends React.Component {
 
     this.state = {
         'users': [],
-        'project':[],
-        'TODO_notes':[],
+        'projects':[],
+        'notes':[],
         'menu': [
-            {'href': 'http://localhost:3000', 'name':'Home'},
-            {'href': 'http://localhost:3000', 'name': '1'},
-            {'href': 'http://localhost:3000', 'name': '2'},
-            {'href': 'http://localhost:3000', 'name': '3'},
+            {'href': '/', 'name':'Home'},
+            {'href': '/users', 'name': 'Users'},
+            {'href': '/projects', 'name': 'Projects'},
+            {'href': '/notes', 'name': 'Notes'},
         ]
     }
   }
@@ -29,7 +30,7 @@ class App extends React.Component {
     axios
         .get('http://localhost:8000/api/users/')
         .then(response => {
-            const users = response.data
+            const users = response.data.results
                 this.setState(
                     {
                         'users': users
@@ -40,7 +41,7 @@ class App extends React.Component {
       axios
         .get('http://localhost:8000/api/projects/')
         .then(response => {
-            const projects = response.data
+            const projects = response.data.results
                 this.setState(
                     {
                         'projects': projects
@@ -51,7 +52,7 @@ class App extends React.Component {
       axios
         .get('http://localhost:8000/api/notes/')
         .then(response => {
-            const notes = response.data
+            const notes = response.data.results
                 this.setState(
                     {
                         'notes': notes
@@ -66,8 +67,14 @@ class App extends React.Component {
          <html>
          <body>
          <div>
-             <Menu menu = {this.state.menu} />
-             <UserList users = {this.state.users} />
+             <BrowserRouter>
+                 <Menu menu = {this.state.menu} />
+                 <Routes>
+                     <Route exact path='/users' element={<UserList users = {this.state.users} />} />
+                     <Route exact path='/projects' element={<ProjectList projects={this.state.projects} />} />
+                     <Route exact path='/notes' element={<NoteList notes={this.state.notes} />} />
+                 </Routes>
+             </BrowserRouter>
          </div>
          </body>
          <Footer />

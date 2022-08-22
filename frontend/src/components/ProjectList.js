@@ -1,4 +1,4 @@
-const UserItem = ({project}) => {
+const ProjectItem = ({project}) => {
     return (
         <tr>
             <td>
@@ -8,7 +8,7 @@ const UserItem = ({project}) => {
                 {project.repository}
             </td>
             <td>
-                {project.users}
+                {project.users.values()}
             </td>
         </tr>
     )
@@ -18,15 +18,15 @@ const ProjectsList = ({projects}) => {
     return (
         <table>
             <th>
-                First name
+                Name
             </th>
             <th>
-                Last name
+                Repository
             </th>
             <th>
-                Email
+                Users
             </th>
-            {projects.map((project) => <UserItem project = {project} />)}
+            {projects.map((project) => <ProjectItem project = {project} />)}
         </table>
     )
 }
