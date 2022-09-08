@@ -9,10 +9,9 @@ const MenuItem = ({link}) =>{
 }
 
 const Menu =({menu})=> {
-    return (
-        <ul>
+    return (<>
             {menu.map((link) => <MenuItem link = {link} />)}
-        </ul>
+            </>
     )
 }
 
