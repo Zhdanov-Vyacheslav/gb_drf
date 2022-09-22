@@ -19,3 +19,9 @@ class UserModelSerializer(ModelSerializer):
         user = User(**validated_data)
         user.save()
         return user
+
+
+class UserModelSerializerV2(UserModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name', 'is_superuser', 'is_staff']
