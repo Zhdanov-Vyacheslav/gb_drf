@@ -6,7 +6,7 @@ from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework import mixins
 
 from .models import User
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializerV2
 
 
 class UserAPIView(APIView):
@@ -33,3 +33,8 @@ class UserModelLimitedViewSet(
     GenericViewSet):
     serializer_class = UserModelSerializer
     queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return UserModelSerializerV2
+        return UserModelSerializer
